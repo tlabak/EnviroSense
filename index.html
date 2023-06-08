@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EnviroSense</title>
+	<style type="text/css">
+		body {
+			/*background: linear-gradient(to bottom, #2fd037 0%, #238f23 30%, #24cc24 50%, #119e16 70%, #05cc0c 100%);*/
+			/*background-size: 300% 300%;*/
+            background-image: url(EnviroSense_Website_Background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: green;
+			animation: gradient 30s ease infinite;
+			height: 100%;
+			font-family: Gill Sans, sans-serif;
+			font-size: 14px;
+			margin: 0;
+			padding: 0;
+		}
+
+		@keyframes gradient {
+			0% {
+				background-position: 0% 50%;
+			}
+			50% {
+				background-position: 100% 50%;
+			}
+			100% {
+				background-position: 0% 50%;
+			}
+		}
+		.container {
+			margin: 20px auto;
+			max-width: 1000px;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+		}
+		h1 {
+			text-align: center;
+			margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 35px;
+            color: green;
+		}
+        h2 {
+			text-align: center;
+			margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 25px;
+            opacity: 0.5;
+            color: black;
+            font-style: italic;
+		}
+        h3{
+            text-align: left;
+			margin-bottom: 5px;
+            font-size: 18px;
+            color: black;
+        }
+        h4{
+            text-align: center;
+			margin-bottom: 20px;
+            font-size: 25px;
+            color: black;
+        }
+        p{
+            font-size: 16px;
+        }
+		label {
+			display: block;
+			margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 18px;
+		}
+		input[type=text] {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-bottom: 20px;
+			font-size: 14px;
+		}
+		#output {
+			height: 200px;
+			border: 1px solid #ccc;
+			padding: 10px;
+			overflow-y: scroll;
+			font-size: 14px;
+		}
+		.parameters {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+        hr {
+          height:5px;
+          border-width:0;
+          background-color:#2A4C19;
+          margin-bottom: 20px;
+        }
+        a {
+          font-size: 20px;
+        }
+        li {
+          font-size: 25px;
+        }
+		.message-box {
+			border: 5px solid #ccc;
+			padding: 10px;
+			font-size: 25px;
+            text-align: center;
+            color: black;
+		}
+        .message-box.green {
+          color: green;
+        }
+        .message-box.yellow {
+          color: yellow;
+        }
+        .message-box.orange {
+          color: orange;
+        }
+        .message-box.red {
+          color: red;
+        }
+        .message-box.default {
+          color: black;
+        }
+        .message-box.cyan {
+          color: cyan;
+        }
+        .message-box.blue {
+          color: blue;
+        }
+        .message-box.purple {
+          color: purple;
+        }
+        .message-box.brown {
+          color: brown;
+        }
+        
+        #light-intensity-description {
+            font-style: italic;
+            color: green;
+        }
+        #uv-index-description {
+            font-style: italic;
+            color: green;
+        }
+        #temperature-description {
+            font-style: italic;
+            color: green;
+        }
+        #humidity-description {
+            font-style: italic;
+            color: green;
+        }
+        #pressure-description {
+            font-style: italic;
+            color: green;
+        }
+        #air-quality-description {
+            font-style: italic;
+            color: green;
+        }
+        #soil-moisture-description {
+            font-style: italic;
+            color: green;
+        }
+        #soil-acidity-description {
+            font-style: italic;
+            color: green;
+        }
+        .background{
+        /*I remove the code for background-image:url and make it as inline css on my div*/
+        background-repeat:no-repeat;
+        width:1025px !important;
+        margin-top:100px !important;
+    }
+	</style>
+</head>
+<body>
+    <div class="background" style="background-image: url(EnviroSense_Website_Background.jpg)">
+</div>
+	<div class="container">
+		<h1>EnviroSense</h1>
+        <h2>An Energy-Harvesting, Environmental Tracker.</h2>
+        <hr>
+        
+		<div class="parameters">
+		  <div class="column">
+            <label>Light Intensity</label>
+			<div class="message-box" id="message-box1">
+              <div id="light-intensity">89</div>
+            </div>
+              <p id="light-intensity-text">This will be about light intensity.</p>
+              
+              <hr>
+              
+            <label>UV Index</label>
+			<div class="message-box" id="message-box2">
+			  <div id="uv-index">6</div>
+			</div>
+              <p id="uv-index-text">This will be about uv index.</p>
+              
+              <hr>
+              
+            <label>Temperature</label>
+			<div class="message-box" id="message-box3">
+			  <div id="temperature">72</div>
+			</div>
+              <p id="temperature-text">This will be about temperature.</p>
+              
+              <hr>
+              
+            <label>Humidity</label>
+			<div class="message-box" id="message-box4">
+			  <div id="humidity">75</div>
+			</div>
+              <p id="humidity-text">This will be about humidity.</p>
+		  </div>
+            
+            
+		  <div class="column">
+            <label>Pressure</label>
+			<div class="message-box" id="message-box5">
+			  <div id="pressure">1015</div>
+			</div>
+              <p id="pressure-text">This will be about pressure.</p>
+              
+              <hr>
+              
+            <label>Air Quality</label>
+			<div class="message-box" id="message-box6">
+			  <div id="air-quality">166</div>
+			</div>
+              <p id="air-quality-text">This will be about air quality.</p>
+              
+              <hr>
+              
+            <label>Soil Moisture</label>
+			<div class="message-box" id="message-box7">
+			  <div id="soil-moisture">54</div>
+			</div>
+              <p id="soil-moisture-text">This will be about soil moisture.</p>
+              
+              <hr>
+              
+            <label>Soil Acidity</label>
+			<div class="message-box" id="message-box8">
+			  <div id="soil-acidity">7</div>
+			</div>
+              <p id="soil-acidity-text">This will be about soil acidity.</p>
+		  </div>
+		</div>
+        
+        <hr>
+        
+        <h4>Parameter Details</h4>
+        <label>Light Intensity</label>
+            <p id="light-intensity-description">This will be the interpretation of the light intensity data.</p>
+            <p>Light intensity plays a crucial role in the environment, significantly influencing various biological processes and ecosystems. The availability and intensity of light directly impact plant growth, photosynthesis, animal behavior, and overall ecosystem dynamics. Optimal light levels are essential for healthy plant development, as they provide energy for photosynthesis and regulate plant processes such as flowering and fruiting. Moderate to high light intensity is generally favorable for most plants, allowing for efficient photosynthesis and robust growth. However, extremely high light intensity can lead to photoinhibition, damaging plant tissues and reducing photosynthetic efficiency. On the other hand, insufficient light intensity hampers photosynthesis, stunts plant growth, and can negatively impact ecosystem productivity. In natural ecosystems, light intensity variations create distinct habitats, shaping the distribution and behavior of organisms. Different species have adapted to specific light levels, with shade-tolerant plants thriving under lower light intensity while sun-loving plants require higher light levels.</p>
+        <br>
+        <label>UV Index</label>
+            <p id="uv-index-description">This will be the interpretation of the uv index data.</p>
+        <p>UV radiation plays a significant role in both the natural environment and its impact on human health. Moderate exposure to UV radiation is essential for various biological processes, including vitamin D synthesis in humans and the regulation of plant growth and development. However, excessive exposure to UV radiation can have detrimental effects on both the environment and human health.</p>
+        <p>In terms of the environment, high levels of UV radiation can cause damage to plant tissues, leading to reduced growth, altered reproductive patterns, and increased susceptibility to diseases. Additionally, UV radiation can impact aquatic ecosystems by affecting the photosynthetic activity of phytoplankton and disrupting the balance of marine food webs.</p>
+        <p>For human health, prolonged exposure to high levels of UV radiation can cause sunburn, skin aging, and an increased risk of skin cancer. It is crucial to protect oneself from excessive UV exposure by seeking shade, wearing protective clothing, and using sunscreen with a high sun protection factor (SPF). The UV index serves as a guide to understanding the level of UV radiation and helps individuals take appropriate measures to minimize their risk of harmful effects.</p>
+        <p>The UV index scale ranges from 0 to 11+, with higher values indicating higher UV radiation levels. A UV index of 0-2 is considered low and poses a minimal risk, while a UV index of 3-5 is moderate and requires some sun protection measures. A UV index of 6-7 is high, indicating a significant risk of UV exposure, and individuals should take extra precautions, especially during midday when the sun's rays are most intense. A UV index of 8 and above is very high to extreme, suggesting a high risk of harm, and it is essential to limit sun exposure and follow comprehensive sun protection strategies.</p>
+        <br>
+        <label>Temperature</label>
+            <p id="temperature-description">This will be the interpretation of the temperature data.</p>
+            <p>Temperature is a crucial environmental factor that plays a significant role in shaping the Earth's weather patterns, biomes, and climates. It affects various aspects of the environment, including ecosystems, species distribution, and natural processes. Temperature influences the rate of biological and chemical reactions, plant growth, and the behavior of animals.</p>
+            <p>Different temperature levels have distinct effects on the environment. In general, moderate temperatures are favorable for diverse ecosystems and support a wide range of species. These temperatures provide optimal conditions for plant growth, photosynthesis, and nutrient cycling, promoting a healthy balance within ecosystems. Moderate temperatures also facilitate the functioning of key ecological processes such as pollination, seed dispersal, and predator-prey interactions.</p>
+            <p>However, extreme temperatures can have detrimental effects on the environment. High temperatures can lead to heat stress, desiccation, and reduced water availability, impacting both plant and animal life. Heatwaves can cause heat-related illnesses, affect crop yields, and increase the risk of wildfires. On the other hand, extremely low temperatures can result in frost damage, freeze-thaw cycles, and limit the growth and survival of many organisms.</p>
+            <p>Temperature variations across different biomes and climates shape the distribution of ecosystems and species on Earth. Tropical regions typically experience high temperatures year-round, supporting lush rainforests with abundant biodiversity. In contrast, colder regions near the poles have lower temperatures, leading to the formation of tundra and taiga biomes with specialized flora and fauna adapted to cold conditions. Temperature gradients also influence the development of climate zones, such as the temperate, arid, and Mediterranean climates, each characterized by specific temperature ranges and associated vegetation patterns.</p>
+            <p>Monitoring temperature fluctuations and understanding their effects on the environment are crucial for managing ecosystems, conserving biodiversity, and mitigating the impacts of climate change. Temperature extremes, whether excessively high or low, can disrupt ecological processes, impact the functioning of ecosystems, and pose risks to human well-being. Sustainable management practices, conservation efforts, and adaptive strategies are vital to address the challenges arising from temperature changes and ensure the long-term health and resilience of Earth's diverse biomes and ecosystems.</p>
+        <br>
+        <label>Humidity</label>
+            <p id="humidity-description">This will be the interpretation of the humidity data.</p>
+            <p>Humidity, the amount of moisture present in the air, plays a crucial role in shaping the environment and influencing various aspects of weather, biomes, and climates on Earth. It has a profound impact on both living organisms and natural processes. Humidity affects the distribution of plant and animal species, regulates evaporation and precipitation, and influences the overall functioning of ecosystems.</p>
+            <p>Optimal levels of humidity are essential for the health and productivity of ecosystems. In general, moderate humidity allows for adequate water availability, supporting plant growth, photosynthesis, and nutrient uptake. It also helps regulate temperature, as evaporation cools the environment. Moderate humidity levels create favorable conditions for a diverse range of biomes, such as temperate forests and grasslands, which support a wide array of flora and fauna.</p>
+            <p>However, both high and low levels of humidity can have adverse effects on the environment. High humidity, often associated with tropical regions, can create conditions for the proliferation of disease-causing organisms, mold, and fungal growth. It can also impede evaporation, leading to reduced cooling effects and potentially causing discomfort for both humans and animals. Excessively high humidity can contribute to extreme weather events such as heavy rainfall, storms, and hurricanes.</p>
+            <p>Conversely, low humidity levels, commonly found in arid and desert regions, can lead to water scarcity, desiccation, and drought conditions. Insufficient humidity affects plant growth and survival, limiting the diversity of species in these environments. It can also impact human well-being by causing dry skin, respiratory issues, and dehydration. Additionally, low humidity levels can increase the risk of wildfires, as dry vegetation becomes more susceptible to ignition.</p>
+            <p>Humidity gradients across different biomes and climates contribute to the formation of distinct ecological zones. For example, tropical rainforests typically exhibit high humidity, supporting the growth of lush vegetation and fostering biodiversity. In contrast, arid regions have low humidity, resulting in adaptations of plants and animals to conserve water, such as succulents and desert-adapted species.</p>
+            <p>Understanding the relationship between humidity and the environment is crucial for managing ecosystems, predicting weather patterns, and addressing climate change. Monitoring humidity levels helps assess the vulnerability of ecosystems to droughts, floods, and other extreme events. It also aids in understanding the impacts of climate change on humidity patterns and the subsequent effects on ecosystems and human societies.</p>
+        
+        <br>
+        <label>Pressure</label>
+            <p id="pressure-description">This will be the interpretation of the pressure data.</p>
+            <p>Pressure, specifically atmospheric pressure, plays a significant role in the environment and has profound effects on weather patterns and climates on Earth. Atmospheric pressure refers to the force exerted by the weight of the air molecules in the Earth's atmosphere. It influences various atmospheric phenomena and has a direct impact on weather systems, air circulation, and the distribution of heat and moisture.</p>
+            <p>Optimal levels of atmospheric pressure contribute to stable weather conditions. In general, moderate pressure indicates a relatively balanced atmosphere, promoting clear skies and calm weather. This is often associated with fair weather conditions, allowing for comfortable temperatures and gentle winds. Moderate pressure systems are vital for supporting agricultural activities and providing suitable conditions for plant growth.</p>
+            <p>However, both high and low levels of atmospheric pressure can result in significant weather changes. High-pressure systems, often referred to as anticyclones, typically bring about fair weather conditions with clear skies, little cloud cover, and light winds. They are associated with stable atmospheric conditions, which can lead to extended periods of dry and sunny weather. High-pressure systems play a role in the formation of desert regions and contribute to arid climates.</p>
+            <p>On the other hand, low-pressure systems, known as cyclones or depressions, are characterized by rising air, cloud formation, and the potential for precipitation. These systems often bring about stormy weather, including rain, strong winds, and thunderstorms. Low-pressure systems play a critical role in the formation of weather fronts, which result in the movement of air masses and the occurrence of different weather conditions. They are responsible for the formation of precipitation, such as rain, snow, and hail.</p>
+            <p>Extreme levels of atmospheric pressure can have adverse effects on the environment. Very high-pressure systems can lead to stagnant air and temperature inversions, trapping pollutants close to the surface and contributing to poor air quality. Extremely low-pressure systems, such as tropical cyclones or hurricanes, can cause widespread destruction through strong winds, heavy rainfall, storm surges, and flooding.</p>
+            <p>The distribution of atmospheric pressure across the globe determines global wind patterns and influences climate zones. For instance, the presence of high-pressure systems around the subtropical latitudes creates arid conditions in regions such as deserts, while low-pressure systems along the equator contribute to the formation of rainforests. The movement of pressure systems, such as the seasonal shift of the Intertropical Convergence Zone (ITCZ), plays a crucial role in shaping the monsoon climates in certain regions.</p>
+            
+        <br>
+        <label>Air Quality</label>
+            <p id="air-quality-description">This will be the interpretation of the air quality data.</p>
+            <p>Air quality plays a crucial role in the environment, as well as human health and well-being. The quality of the air we breathe directly impacts the overall health of ecosystems, plant life, animal populations, and human populations. Good air quality is characterized by low levels of pollutants and a balanced composition of gases, ensuring the sustainability of ecosystems and the health of living organisms.</p>
+            <p>Air quality is commonly measured using various parameters, including the concentration of pollutants such as particulate matter (PM), nitrogen dioxide (NO2), sulfur dioxide (SO2), carbon monoxide (CO), ozone (O3), and volatile organic compounds (VOCs). Different pollutants have different thresholds for what is considered good or bad air quality, and these thresholds are often regulated by environmental standards and guidelines.</p>
+            <p>Generally, low levels of pollutants are associated with good air quality. For example, low levels of PM2.5 (particulate matter with a diameter of 2.5 micrometers or less) and PM10 (particulate matter with a diameter of 10 micrometers or less) are desirable, as they indicate minimal suspended particles in the air. Similarly, low concentrations of pollutants like NO2, SO2, and CO are favorable, as they signify reduced emissions from industrial activities, transportation, and energy production.</p>
+            <p>On the other hand, high levels of pollutants are indicative of poor air quality and can have detrimental effects on both the environment and human health. Elevated concentrations of PM, NO2, SO2, CO, O3, and VOCs can lead to a range of adverse effects, including respiratory problems, cardiovascular diseases, impaired lung function, allergies, and even premature death. These pollutants can also have damaging effects on vegetation, ecosystems, and wildlife, leading to reduced biodiversity and ecological imbalances.</p>
+            <p>To safeguard human health and protect the environment, it is essential to maintain air quality within acceptable limits. Regulatory agencies and health organizations set air quality standards and guidelines to establish safe levels of pollutants. These standards vary among countries but are generally designed to minimize health risks and promote sustainable environmental practices.</p>
+            <p>Efforts to improve air quality involve implementing pollution control measures, such as reducing industrial emissions, promoting cleaner energy sources, implementing stricter vehicle emission standards, and enhancing waste management practices. Public awareness and individual actions, such as reducing personal emissions, conserving energy, and supporting sustainable practices, also play a vital role in improving air quality.</p>
+        <br>
+        <label>Soil Moisture</label>
+            <p id="soil-moisture-description">This will be the interpretation of the soil moisture data.</p>
+            <p>Soil moisture is a critical factor that plays a vital role in shaping the environment and influencing various aspects of life on Earth. The availability of water in the soil directly affects plant growth, agriculture, biodiversity, and ecosystem dynamics. The levels of soil moisture can vary significantly across different regions, climates, and seasons, and maintaining an optimal balance is essential for sustaining healthy ecosystems and supporting agricultural productivity.</p>
+            <p>In agricultural contexts, soil moisture is a key determinant of crop growth and yield. Adequate soil moisture levels are necessary for seed germination, root development, nutrient uptake, and photosynthesis. Too little moisture, known as drought conditions, can lead to stunted plant growth, reduced crop yields, and even crop failure. On the other hand, excessive soil moisture, such as in waterlogged or poorly drained soils, can restrict oxygen availability to plant roots, leading to root rot and other water-related issues.</p>
+            <p>Beyond agriculture, soil moisture also influences biodiversity and ecosystem functioning. Different regions of the Earth have distinct moisture regimes, ranging from arid deserts to humid rainforests. Plant and animal species in each of these regions have adapted to their specific soil moisture conditions. Changes in soil moisture levels can impact the distribution and abundance of species, affect nutrient cycling, and shape the overall composition and structure of ecosystems.</p>
+            <p>For instance, in arid regions, plants and animals have evolved to tolerate low soil moisture levels and exhibit water-conserving adaptations. These regions often support specialized plant species, such as succulents and drought-tolerant shrubs, as well as animal species adapted to water scarcity. In contrast, in wetland ecosystems or regions with high soil moisture, unique plant and animal communities thrive in water-rich environments, contributing to high biodiversity and specific ecological niches.</p>
+            <p>Determining what levels of soil moisture are considered good or bad depends on the specific context and the needs of the organisms and activities involved. In general, a balance of soil moisture is desired, where the soil retains enough water to support plant growth and ecosystem functioning without being excessively saturated or overly dry. Soil moisture content is often measured as a percentage, with different soil types and plants having varying optimal moisture ranges.</p>
+            <p>It is important to manage soil moisture carefully in agricultural practices to ensure sustainable production and minimize environmental impacts. Practices such as irrigation, mulching, and soil conservation techniques help regulate soil moisture levels, prevent erosion, and promote water-use efficiency. Conservation efforts, such as restoring wetlands and preserving natural ecosystems, also play a crucial role in maintaining adequate soil moisture levels and safeguarding biodiversity.</p>
+        <br>
+        <label>Soil Acidity</label>
+            <p id="soil-acidity-description">This will be the interpretation of the soil acidity data.</p>
+            <p>Soil acidity, also known as soil pH, is a critical factor that significantly influences the environment and has wide-ranging effects on various aspects of life on Earth. The acidity or alkalinity of soil plays a vital role in determining nutrient availability, plant growth, agricultural productivity, and the overall functioning of ecosystems. Different regions of the Earth have varying soil acidity levels, and maintaining appropriate soil pH is crucial for supporting optimal agricultural practices, biodiversity, and ecosystem health.</p>
+            <p>Soil acidity is measured on a pH scale that ranges from 0 to 14, with values below 7 indicating acidic soils, values above 7 indicating alkaline soils, and a pH of 7 representing neutral soils. Soil acidity affects nutrient solubility and availability, influencing the uptake of essential elements by plants. Each plant species has specific pH requirements for optimal growth, and deviations from their preferred range can negatively impact their nutrient absorption and overall health.</p>
+            <p>In agricultural contexts, soil acidity is of great significance. Most crops prefer slightly acidic to neutral soils with a pH range of 6 to 7.5. However, the ideal pH range may vary depending on the crop type. Acidic soils, with a pH below the desired range, can limit nutrient availability, particularly for macronutrients like nitrogen, phosphorus, and potassium. This can hinder crop growth and reduce yields. Conversely, excessively alkaline soils can also cause nutrient imbalances and negatively affect crop performance.</p>
+            <p>Soil acidity also plays a crucial role in shaping natural ecosystems and biodiversity. Different regions of the Earth exhibit varying soil pH levels due to geological and environmental factors. Plant species have evolved to thrive in specific pH conditions, leading to the development of distinct plant communities in different regions. For example, heathlands and coniferous forests often occur in acidic soils, while alkaline soils support unique plant communities such as grasslands or calcareous fens.</p>
+            <p>Soil pH affects not only plant growth but also the diversity and distribution of soil organisms, including microorganisms, fungi, and soil-dwelling invertebrates. These organisms play essential roles in nutrient cycling, decomposition, and soil structure formation. Changes in soil acidity can disrupt these ecological processes and impact the overall functioning and stability of ecosystems. Determining what levels of soil acidity are considered good or bad depends on the specific needs of plants and ecosystems. In general, a slightly acidic to neutral soil pH range of 6 to 7.5 is considered optimal for most agricultural crops. However, it is important to note that different plant species may have specific pH preferences. Furthermore, certain regions or ecosystems may naturally exhibit higher or lower soil acidity levels based on local geological conditions.</p>
+        <hr>
+        
+        <label>Received Data:</label>
+		<div id="output"></div>
+        
+        <hr>
+        <h4>About</h4>
+        <p>Introducing EnviroSense: an innovative energy-harvesting embedded system designed to measure and track a wide range of critical environmental parameters. With the ability to monitor light intensity, UV radiation, temperature, humidity, pressure, soil moisture, soil acidity, and air quality, EnviroSense addresses the growing need for accurate and reliable data on the state of our environment. This advanced product serves as an advocate and research tool, raising environmental awareness and promoting local environmental tracking.</p>
+        <br>
+        <p>EnviroSense takes a long-term approach to environmental data collection, allowing for the continuous monitoring of the environment over several years. By harnessing energy from its surroundings, the system ensures sustainability and longevity without the need for additional power sources. Its seamless integration of energy-harvesting technology enables EnviroSense to operate autonomously, providing valuable insights into long-term changes and trends in the environment.</p>
+        <br>
+        <p>EnviroSense empowers individuals, local communities, and organizations to make informed decisions and take proactive steps toward environmental conservation and protection. With its comprehensive range of environmental measurements and its ability to gather data over an extended period, EnviroSense paves the way for a deeper understanding of our surroundings and facilitates evidence-based actions to address pressing environmental issues.</p>
+        <hr>
+        
+        <h4>Resources</h4>
+        <h3>For contemporary news on the environment:</h3>
+        <ul>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.nationalgeographic.com/environment/">National Geographic: Environmental News</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.theguardian.com/us/environment">The Guardian: Environmental News</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.nbcnews.com/science/environment">NBC News: Environmental News</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/section/climate">New York Times: Environmental News</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.epa.gov/environmental-topics">Environmental Topics - USEPA</a></li>
+        </ul>
+        <h3>For learning about environmental awareness and habits:</h3>
+        <ul>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://pachamama.org/environmental-awareness">What is Environmental Awareness?</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.ecofriendlyhabits.com/how-to-be-eco-friendly/">How to Be More Eco-Friendly: 105 Ways to Live an Environmentally Conscious Lifestyle</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://blog.cleanhub.com/environmental-sustainability">Environmental Sustainability: All You Need to Know</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://oceanservice.noaa.gov/ocean/earthday.html">Protecting Our Planet Starts with You</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.biologicaldiversity.org/programs/population_and_sustainability/sustainability/live_more_sustainably.html">12 WAYS TO LIVE MORE SUSTAINABLY</a></li>
+        </ul>
+        <h3>For ways to be more active with environment sustainability and conservation:</h3>
+        <ul>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.volunteerworld.com/en/volunteer-abroad/environment">Environmental Volunteer Opportunities</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.volunteerhq.org/volunteer-abroad-projects/environment-and-conservation/">Environment & Conservation Volunteering Abroad Programs</a></li>
+        </ul>
+	  </div>
+
+	<script>
+		//var socket = new WebSocket("ws://localhost:8888/websocket");
+		var socket = new WebSocket("ws://18.218.206.202:8888/websocket");
+        
+        // Data Extraction
+        
+		socket.onmessage = function(event) {
+			var output = document.getElementById("output");
+			var message = event.data;
+			output.innerHTML += message + "<br>";
+			output.scrollTop = output.scrollHeight;
+
+			// Parse the message and extract parameter values
+			var parameters = message.split(":");
+			for (var i = 0; i < parameters.length; i++) {
+				//var parameterName = parameters[i].split(":")[0];
+				var parameterName = parameters[i];
+    			var parameterValue = parameters[i + 1];
+				// Example: 0:26:32 :LightLevel:376 :UVIndex:0 :WaterLevel:59 :Temperature:72.90 :Humidity:-999.00 :AirQuality:595.00 :Pressure:1008.87 :pH:-278.00
+				// Update the value in the corresponding text box
+				switch (parameterName) {
+					case "LightLevel":
+						document.getElementById("light-intensity").innerHTML = parameterValue;
+						break;
+					case "UVIndex":
+						document.getElementById("uv-index").innerHTML = parameterValue;
+						break;
+					case "WaterLevel":
+						document.getElementById("soil-moisture").innerHTML = parameterValue;
+						break;
+					case "Temperature":
+						document.getElementById("temperature").innerHTML = parameterValue;
+						break;
+					case "Humidity":
+						document.getElementById("humidity").innerHTML = parameterValue;
+						break;
+					case "AirQuality":
+						document.getElementById("air-quality").innerHTML = parameterValue;
+						break;
+					case "Pressure":
+						document.getElementById("pressure").innerHTML = parameterValue;
+						break;
+					case "pH":
+						document.getElementById("soil-acidity").innerHTML = parameterValue;
+						break;
+				}
+			}
+		};
+        
+        // Message Box Interpretation
+        function updateLightIntensity(){
+            // Light Intensity
+            const lightIntensityElement = document.getElementById("light-intensity");
+            const lightIntensity = parseInt(lightIntensityElement.textContent);
+            const messageBox1 = document.getElementById("message-box1");
+            const lightIntensityText = document.getElementById("light-intensity-text");
+            const lightIntensityDescription = document.getElementById("light-intensity-description");
+
+            // Update based on VALUE
+            if (lightIntensity > 500) {
+              lightIntensityText.textContent = "The light intensity is low.";
+              messageBox1.className = "message-box red";
+              lightIntensityDescription.textContent = "Low light intensity may indicate low sunlight conditions or shaded areas. This level of light intensity is suitable for activities that require minimal or no sunlight exposure.";
+            } else if (lightIntensity > 350) {
+              lightIntensityText.textContent = "The light intensity is moderate.";
+              messageBox1.className = "message-box yellow";
+              lightIntensityDescription.textContent = "Moderate light intensity is suitable for most plants and outdoor activities. It provides a balanced amount of sunlight for photosynthesis and supports healthy plant growth. It is also comfortable for human activities.";
+            } else if (lightIntensity > 0) {
+              lightIntensityText.textContent = "The light intensity is high.";
+              messageBox1.className = "message-box green";
+              lightIntensityDescription.textContent = "High light intensity can promote plant growth and photosynthesis. It provides ample sunlight for optimal plant development and is beneficial for activities that require direct sunlight exposure. However, it's important to protect yourself from excessive sunlight and use appropriate sun protection measures.";
+            } else {
+              lightIntensityText.textContent = "The light intensity is not detected.";
+              messageBox1.className = "message-box default";
+              lightIntensityDescription.textContent = "The light intensity data is not available.";
+            }
+
+        }
+        // Call the function initially
+        updateLightIntensity();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const lightElement = document.getElementById("light-intensity");
+        lightElement.addEventListener("change", updateLightIntensity);
+        
+        function updateUVIndex(){
+            // UV Index
+            const uvIndexElement = document.getElementById("uv-index");
+            const uvIndex = parseInt(uvIndexElement.textContent);
+            const messageBox2 = document.getElementById("message-box2");
+            const uvIndexText = document.getElementById("uv-index-text");
+            const uvIndexDescription = document.getElementById("uv-index-description");
+
+            // Update based on VALUE
+            if (uvIndex >= 0 && uvIndex <= 2) {
+              uvIndexText.textContent = "The UV index is low.";
+              messageBox2.className = "message-box green";
+              uvIndexDescription.textContent = "Low UV index indicates minimal risk of harm from unprotected sun exposure. It is generally safe to spend time outdoors without protection, but you should still take precautions on very sunny days.";
+            } else if (uvIndex >= 3 && uvIndex <= 5) {
+              uvIndexText.textContent = "The UV index is moderate.";
+              messageBox2.className = "message-box yellow";
+              uvIndexDescription.textContent = "Moderate UV index suggests a moderate risk of harm from unprotected sun exposure. It is recommended to take precautions such as wearing a hat, sunglasses, and sunscreen, especially during midday hours.";
+            } else if (uvIndex >= 6 && uvIndex <= 7) {
+              uvIndexText.textContent = "The UV index is high.";
+              messageBox2.className = "message-box orange";
+              uvIndexDescription.textContent = "High UV index indicates a high risk of harm from unprotected sun exposure. It is important to protect yourself by seeking shade, wearing protective clothing, and applying sunscreen with a high SPF.";
+            } else if (uvIndex >= 8 && uvIndex <= 10) {
+              uvIndexText.textContent = "The UV index is very high.";
+              messageBox2.className = "message-box red";
+              uvIndexDescription.textContent = "Very high UV index suggests a very high risk of harm from unprotected sun exposure. Extra precautions are necessary, such as avoiding the sun during peak hours, wearing UV-blocking clothing, and regularly applying high SPF sunscreen.";
+            } else if (uvIndex >= 11) {
+              uvIndexText.textContent = "The UV index is extreme.";
+              messageBox2.className = "message-box violet";
+              uvIndexDescription.textContent = "Extreme UV index indicates an extreme risk of harm from unprotected sun exposure. It is highly recommended to stay indoors or seek shade, wear protective clothing, and use sunscreen with a very high SPF.";
+            } else {
+              uvIndexText.textContent = "The UV index is not detected.";
+              messageBox2.className = "message-box default";
+              uvIndexDescription.textContent = "The UV index data is not available.";
+            }
+        }
+        // Call the function initially
+        updateUVIndex();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const uvElement = document.getElementById("uv-index");
+        uvElement.addEventListener("change", updateUVIndex);
+        
+        function updateTemperature(){
+            // Temperature
+            const temperatureElement = document.getElementById("temperature");
+            const temperature = parseInt(temperatureElement.textContent);
+            const messageBox3 = document.getElementById("message-box3");
+            const temperatureText = document.getElementById("temperature-text");
+            const temperatureDescription = document.getElementById("temperature-description");
+
+            // Update based on VALUE
+            if (temperature > 100) {
+              temperatureText.textContent = "The temperature is extremely hot.";
+              messageBox3.className = "message-box red";
+              temperatureDescription.textContent = "Extremely hot temperatures can have adverse effects on human health and ecosystems. They can lead to heat-related illnesses, drought conditions, and impact wildlife habitats.";
+            } else if (temperature > 90) {
+              temperatureText.textContent = "The temperature is very hot.";
+              messageBox3.className = "message-box orange";
+              temperatureDescription.textContent = "Very hot temperatures may lead to heat-related illnesses and impact wildlife habitats. It is important to stay hydrated and take necessary precautions in extreme heat.";
+            } else if (temperature > 80) {
+              temperatureText.textContent = "The temperature is hot.";
+              messageBox3.className = "message-box orange";
+              temperatureDescription.textContent = "Hot temperatures can cause discomfort and stress on both humans and animals. It is advisable to seek shade and avoid prolonged exposure to the sun.";
+            } else if (temperature > 70) {
+              temperatureText.textContent = "The temperature is warm.";
+              messageBox3.className = "message-box yellow";
+              temperatureDescription.textContent = "Warm temperatures are generally pleasant and favorable for outdoor activities. They create a comfortable environment for various organisms.";
+            } else if (temperature > 60) {
+              temperatureText.textContent = "The temperature is moderately warm.";
+              messageBox3.className = "message-box yellow";
+              temperatureDescription.textContent = "Moderately warm temperatures are comfortable for most people. They provide an enjoyable climate for outdoor pursuits.";
+            } else if (temperature > 50) {
+              temperatureText.textContent = "The temperature is mild.";
+              messageBox3.className = "message-box green";
+              temperatureDescription.textContent = "Mild temperatures create a pleasant environment for various activities. They offer a comfortable and inviting atmosphere.";
+            } else if (temperature > 40) {
+              temperatureText.textContent = "The temperature is cool.";
+              messageBox3.className = "message-box green";
+              temperatureDescription.textContent = "Cool temperatures are refreshing and suitable for outdoor pursuits. They provide a pleasant and invigorating climate.";
+            } else if (temperature > 32) {
+              temperatureText.textContent = "The temperature is cold.";
+              messageBox3.className = "message-box blue";
+              temperatureDescription.textContent = "Cold temperatures can be uncomfortable and may pose risks if not properly prepared. It is important to dress warmly and protect oneself from the cold.";
+            } else if (isNaN(temperature)) {
+              temperatureText.textContent = "The temperature is not detected.";
+              messageBox3.className = "message-box default";
+              temperatureDescription.textContent = "The temperature data is not available.";
+            } else {
+              temperatureText.textContent = "The temperature is freezing.";
+              messageBox3.className = "message-box blue";
+              temperatureDescription.textContent = "Freezing temperatures can have significant impacts on both humans and ecosystems. They can lead to frostbite, reduced plant growth, and affect the survival of certain species.";
+            }
+        }
+        // Call the function initially
+        updateTemperature();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const temperatureElement = document.getElementById("temperature");
+        temperatureElement.addEventListener("change", updateTemperature);
+
+        function updateHumidity(){
+            // Humidity
+            const humidityElement = document.getElementById("humidity");
+            const humidity = parseInt(humidityElement.textContent);
+            const messageBox4 = document.getElementById("message-box4");
+            const humidityText = document.getElementById("humidity-text");
+            const humidityDescription = document.getElementById("humidity-description");
+
+            // Update based on VALUE
+            if (humidity > 70) {
+              humidityText.textContent = "The humidity is high.";
+              messageBox4.className = "message-box green";
+              humidityDescription.textContent = "High humidity levels can promote plant growth and create a humid environment. It may also contribute to increased moisture in the air and a higher chance of precipitation. In terms of human health, high humidity can make the environment feel warmer and more uncomfortable, especially during hot weather.";
+            } else if (humidity > 40) {
+              humidityText.textContent = "The humidity is moderate.";
+              messageBox4.className = "message-box yellow";
+              humidityDescription.textContent = "Moderate humidity levels are generally comfortable for most people and plants. It indicates a balanced moisture content in the air, which is beneficial for various ecosystems and outdoor activities. However, it's important to note that specific humidity preferences can vary depending on the context and individual needs.";
+            } else if (humidity > 0) {
+              humidityText.textContent = "The humidity is low.";
+              messageBox4.className = "message-box red";
+              humidityDescription.textContent = "Low humidity levels can lead to dry conditions and impact certain plants and human comfort. In environments with low humidity, moisture evaporates more quickly, which can result in drier skin, respiratory discomfort, and potential issues for certain plants that require higher moisture levels. It may also increase the risk of static electricity buildup.";
+            } else if (humidity > 100 || humidity < 0 || isNaN(humidity)) {
+              humidityText.textContent = "The humidity sensor is not calibrated correctly!";
+              messageBox8.className = "message-box brown";
+              humidityDescription.textContent = "There seems to be an issue with the humidity sensor's calibration. Please check the sensor to ensure accurate readings. Incorrect humidity measurements may affect the interpretation of environmental conditions and related implications.";
+            } else {
+              humidityText.textContent = "The humidity is not detected.";
+              messageBox4.className = "message-box default";
+              humidityDescription.textContent = "The humidity data is not available. It's important to ensure proper functioning of the humidity sensor for accurate environmental monitoring and analysis.";
+            }
+
+        }
+        // Call the function initially
+        updateHumidity();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const humidityElement = document.getElementById("humidity");
+        humidityElement.addEventListener("change", updateHumidity);
+
+        function updatePressure(){
+            // Pressure
+            const pressureElement = document.getElementById("pressure");
+            const pressure = parseInt(pressureElement.textContent);
+            const messageBox5 = document.getElementById("message-box5");
+            const pressureText = document.getElementById("pressure-text");
+            const pressureDescription = document.getElementById("pressure-description");
+
+            // Update based on VALUE
+            if (pressure > 1100) {
+              pressureText.textContent = "The pressure is very high.";
+              messageBox5.className = "message-box red";
+              pressureDescription.textContent = "Very high pressure can indicate stable weather conditions and potentially dense air. It may suggest clear skies and calm weather, but it can also contribute to higher levels of pollution and allergens in the air.";
+            } else if (pressure > 900) {
+              pressureText.textContent = "The pressure is high.";
+              messageBox5.className = "message-box orange";
+              pressureDescription.textContent = "High pressure generally suggests fair weather and clear skies. It indicates a stable atmosphere and often corresponds to sunny and dry conditions. However, it can also lead to increased temperatures and heatwaves.";
+            } else if (pressure > 600) {
+              pressureText.textContent = "The pressure is moderate.";
+              messageBox5.className = "message-box yellow";
+              pressureDescription.textContent = "Moderate pressure indicates relatively stable weather conditions. It suggests a balanced atmosphere with typical weather patterns. It may bring a mix of clouds and sun, and moderate temperatures.";
+            } else if (pressure > 260) {
+              pressureText.textContent = "The pressure is low.";
+              messageBox5.className = "message-box green";
+              pressureDescription.textContent = "Low pressure can indicate unsettled weather, such as rain or storms. It often indicates the presence of weather systems and atmospheric instability. It may lead to cloudy skies, precipitation, and cooler temperatures.";
+            } else if (pressure > 1200 || pressure < 0 || isNaN(pressure)) {
+              pressureText.textContent = "The pressure sensor is not calibrated correctly!";
+              messageBox8.className = "message-box brown";
+              pressureDescription.textContent = "There seems to be an issue with the pressure sensor's calibration. Please check the sensor for accurate readings. Incorrect pressure data can affect weather predictions and other environmental analyses.";
+            } else {
+              pressureText.textContent = "The pressure is not detected.";
+              messageBox5.className = "message-box default";
+              pressureDescription.innerHTML = "The pressure data is not available. Please ensure that the pressure sensor is connected and functioning properly to obtain accurate readings.";
+            }
+        }
+        // Call the function initially
+        updatePressure();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const pressureElement = document.getElementById("pressure");
+        pressureElement.addEventListener("change", updatePressure);
+        
+        function updateAirQuality(){
+            // Air Quality
+            const airqualityElement = document.getElementById("air-quality");
+            const airQuality = parseInt(airqualityElement.textContent);
+            const messageBox6 = document.getElementById("message-box6");
+            const airQualityText = document.getElementById("air-quality-text");
+            const airQualityDescription = document.getElementById("air-quality-description");
+
+
+            // Update based on VALUE
+            if (airQuality > 800) {
+              airQualityText.textContent = "The air quality is very poor.";
+              messageBox6.className = "message-box red";
+              airQualityDescription.textContent = "Very poor air quality can have severe health impacts. It may be associated with high levels of pollutants that can be harmful to human health and the environment. It is important to minimize outdoor activities and take necessary precautions.";
+            } else if (airQuality > 500) {
+              airQualityText.textContent = "The air quality is poor.";
+              messageBox6.className = "message-box orange";
+              airQualityDescription.textContent = "Poor air quality may cause health issues, especially for sensitive individuals. It indicates moderate levels of pollutants that can affect respiratory health and may have adverse effects on the ecosystem. Limiting outdoor activities and staying indoors can help mitigate exposure.";
+            } else if (airQuality > 200) {
+              airQualityText.textContent = "The air quality is fair.";
+              messageBox6.className = "message-box yellow";
+              airQualityDescription.textContent = "Fair air quality implies that the pollution levels are acceptable for most people. However, sensitive individuals may experience discomfort, particularly if they have pre-existing respiratory conditions. It is advisable to monitor air quality changes and take necessary precautions.";
+            } else if (airQuality > 50) {
+              airQualityText.textContent = "The air quality is good.";
+              messageBox6.className = "message-box green";
+              airQualityDescription.textContent = "Good air quality indicates clean and fresh air with minimal pollutants. It is favorable for outdoor activities and supports a healthy environment. Enjoy spending time outdoors and take advantage of the clean air.";
+            } else if (airQuality > 1100 || airQuality < 0 || isNaN(airQuality)) {
+              airQualityText.textContent = "The air quality sensor is not calibrated correctly!";
+              messageBox8.className = "message-box brown";
+              airQualityDescription.textContent = "There seems to be an issue with the air quality sensor's calibration. Please check the sensor to ensure accurate readings. Incorrect calibration may affect the reliability of air quality data.";
+            } else {
+              airQualityText.textContent = "The air quality is not detected.";
+              messageBox6.className = "message-box default";
+              airQualityDescription.textContent = "The air quality data is not available. It could be due to sensor malfunction or lack of data. Please check the sensor and ensure proper functioning for accurate readings.";
+            }
+
+        }
+        // Call the function initially
+        updateAirQuality();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const airElement = document.getElementById("air-quality");
+        airElement.addEventListener("change", updateAirQuality);
+
+        
+        function updateSoilMoisture(){
+            // Soil Moisture
+            const soilmoistureElement = document.getElementById("soil-moisture");
+            const soilMoisture = parseInt(soilmoistureElement.textContent);
+            const messageBox7 = document.getElementById("message-box7");
+            const soilMoistureText = document.getElementById("soil-moisture-text");
+            const soilMoistureDescription = document.getElementById("soil-moisture-description");
+
+            // Update based on VALUE
+            if (soilMoisture > 400) {
+              soilMoistureText.textContent = "The soil moisture is high.";
+              messageBox7.className = "message-box green";
+              soilMoistureDescription.textContent = "High soil moisture indicates well-hydrated soil, which is beneficial for plant growth and agricultural activities. It provides optimal conditions for plants to absorb water and nutrients, promoting healthy growth and productivity.";
+            } else if (soilMoisture > 200) {
+              soilMoistureText.textContent = "The soil moisture is moderate.";
+              messageBox7.className = "message-box yellow";
+              soilMoistureDescription.textContent = "Moderate soil moisture suggests a balanced level of hydration for plants and can support healthy growth. It indicates that the soil has an adequate amount of water to sustain plant life and meet their basic needs.";
+            } else if (soilMoisture > 0) {
+              soilMoistureText.textContent = "The soil moisture is low.";
+              messageBox7.className = "message-box red";
+              soilMoistureDescription.textContent = "Low soil moisture indicates dry soil, which can lead to water stress for plants and may require irrigation. It suggests that the soil lacks sufficient water content to support optimal plant growth, and plants may experience difficulties in absorbing nutrients and water from the soil.";
+            } else {
+              soilMoistureText.textContent = "The soil moisture is not detected.";
+              messageBox7.className = "message-box default";
+              soilMoistureDescription.textContent = "The soil moisture data is not available.";
+            }
+
+        }
+        // Call the function initially
+        updateSoilMoisture();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const soilElement = document.getElementById("soil-moisture");
+        soilElement.addEventListener("change", updateSoilMoisture);
+        
+        
+        function updateSoilAcidity(){
+            // Soil Acidity
+            const soilacidityElement = document.getElementById("soil-acidity");
+            const soilAcidity = parseInt(soilacidityElement.textContent);
+            const messageBox8 = document.getElementById("message-box8");
+            const soilAcidityText = document.getElementById("soil-acidity-text");
+            const soilAcidityDescription = document.getElementById("soil-acidity-description");
+
+
+            // Update based on VALUE
+            if (soilAcidity < 4) {
+              soilAcidityText.textContent = "The soil is highly acidic.";
+              messageBox8.className = "message-box red";
+              soilAcidityDescription.textContent = "Highly acidic soil can negatively impact plant growth, as it may hinder nutrient availability and beneficial microbial activity. It is important to amend the soil with organic matter or lime to raise the pH and create a more favorable growing environment for most plants.";
+            } else if (soilAcidity >= 4 && soilAcidity <= 5.5) {
+              soilAcidityText.textContent = "The soil is moderately acidic.";
+              messageBox8.className = "message-box orange";
+              soilAcidityDescription.textContent = "Moderately acidic soil can support certain acid-loving plants but may require amendments to optimize nutrient uptake for other plant species. Adding compost, peat moss, or sulfur can help adjust the pH to the desired range for specific plants.";
+            } else if (soilAcidity > 5.5 && soilAcidity <= 6.5) {
+              soilAcidityText.textContent = "The soil is slightly acidic.";
+              messageBox8.className = "message-box yellow";
+              soilAcidityDescription.textContent = "Slightly acidic soil is generally suitable for a wide range of plants and promotes the availability of various essential nutrients. Most garden plants prefer slightly acidic conditions, but regular monitoring and appropriate amendments may still be necessary.";
+            } else if (soilAcidity > 6.5 && soilAcidity < 7.5) {
+              soilAcidityText.textContent = "The soil is neutral.";
+              messageBox8.className = "message-box green";
+              soilAcidityDescription.textContent = "Neutral soil provides optimal conditions for nutrient availability and microbial activity, supporting healthy plant growth. Many common vegetables, flowers, and shrubs thrive in neutral soil, but specific plants may have different preferences.";
+            } else if (soilAcidity >= 7.5 && soilAcidity <= 8.5) {
+              soilAcidityText.textContent = "The soil is slightly alkaline.";
+              messageBox8.className = "message-box cyan";
+              soilAcidityDescription.textContent = "Slightly alkaline soil can influence the availability of certain nutrients and may require specific amendments for acid-loving plants. Adding organic matter, elemental sulfur, or acidifying fertilizers can help lower the pH and create a more suitable environment for these plants.";
+            } else if (soilAcidity > 8.5 && soilAcidity <= 9.5) {
+              soilAcidityText.textContent = "The soil is moderately alkaline.";
+              messageBox8.className = "message-box blue";
+              soilAcidityDescription.textContent = "Moderately alkaline soil may limit nutrient availability for some plants, requiring appropriate adjustments and plant selection. Incorporating organic matter, such as compost or well-rotted manure, can improve soil structure and nutrient retention.";
+            } else if (soilAcidity > 9.5) {
+              soilAcidityText.textContent = "The soil is highly alkaline.";
+              messageBox8.className = "message-box purple";
+              soilAcidityDescription.textContent = "Highly alkaline soil can significantly affect plant growth, limiting nutrient uptake and leading to nutrient imbalances. Amending the soil with sulfur, peat moss, or organic matter can help lower the pH and create a more suitable environment for plant growth.";
+            } else if (soilAcidity > 14 || soilAcidity < 0 || isNaN(soilAcidity)) {
+              soilAcidityText.textContent = "The pH sensor is not calibrated correctly!";
+              messageBox8.className = "message-box brown";
+              soilAcidityDescription.textContent = "Please ensure proper calibration of the pH sensor to obtain accurate soil acidity measurements.";
+            } else {
+              soilAcidityText.textContent = "The soil acidity is not detected.";
+              messageBox8.className = "message-box default";
+              soilAcidityDescription.textContent = "The soil acidity data is not available.";
+            }
+
+        }
+        // Call the function initially
+        updateSoilAcidity();
+        
+        // Add an event listener to trigger the function when the text value changes
+        const acidElement = document.getElementById("soil-acidity");
+        acidElement.addEventListener("change", updateSoilAcidity);
+        
+        
+        // User INPUT
+		function send() {
+			var input = document.getElementById("message");
+			var message = input.value;
+			socket.send(message);
+			input.value = "";
+		}
+
+		var input = document.getElementById("message");
+		input.addEventListener("keyup", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				send();
+			}
+		});
+	</script>
+</body>
+</html>
